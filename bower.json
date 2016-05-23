@@ -1,0 +1,27 @@
+{
+  "name": "diatom",
+  "description": "Class blueprint",
+  "main": "diatom.js",
+  "authors": [
+    "Richeve S. Bebedor <richeve.bebedor@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "class",
+    "blueprint",
+    "genesis"
+  ],
+  "homepage": "https://github.com/volkovasystems/diatom",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "harden": "^0.2.0",
+    "raze": "^0.0.0",
+    "komento": "^0.2.1"
+  }
+}

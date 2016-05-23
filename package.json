@@ -1,0 +1,29 @@
+{
+  "name": "diatom",
+  "version": "0.0.0",
+  "description": "Class blueprint",
+  "main": "diatom.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/volkovasystems/diatom.git"
+  },
+  "keywords": [
+    "class",
+    "blueprint",
+    "genesis"
+  ],
+  "author": "Richeve S. Bebedor <richeve.bebedor@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/volkovasystems/diatom/issues"
+  },
+  "homepage": "https://github.com/volkovasystems/diatom#readme",
+  "dependencies": {
+    "harden": "^0.2.0",
+    "komento": "^0.2.1",
+    "raze": "0.0.0"
+  }
+}
