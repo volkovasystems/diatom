@@ -22,6 +22,7 @@
   "dependencies": {
     "harden": "^0.2.0",
     "raze": "^0.0.0",
-    "komento": "^0.2.1"
+    "komento": "^0.2.1",
+    "titlelize": "^0.1.1"
   }
 }

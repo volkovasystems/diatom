@@ -1,3 +1,5 @@
+"use strict";
+
 /*:
 	@module-license:
 		The MIT License (MIT)
@@ -44,8 +46,9 @@
 
 if( typeof window == "undefined" ){
 	var harden = require( "harden" );
-	var raze = require( "raze" );
 	var komento = require( "komento" );
+	var raze = require( "raze" );
+	var titlelize = require( "titlelize" );
 }
 
 if( typeof window != "undefined" &&
@@ -55,15 +58,21 @@ if( typeof window != "undefined" &&
 }
 
 if( typeof window != "undefined" &&
+	!( "komento" in window ) )
+{
+	throw new Error( "komento is not defined" );
+}
+
+if( typeof window != "undefined" &&
 	!( "raze" in window ) )
 {
 	throw new Error( "raze is not defined" );
 }
 
 if( typeof window != "undefined" &&
-	!( "komento" in window ) )
+	!( "titlelize" in window ) )
 {
-	throw new Error( "komento is not defined" );
+	throw new Error( "titlelize is not defined" );
 }
 
 var diatom = function diatom( name ){
@@ -86,6 +95,8 @@ var diatom = function diatom( name ){
 
 		throw new Error( "name is not simple" );
 	}
+
+	name = titlelize( name )
 
 	var blueprint = komento( function template( ){
 		/*!
@@ -136,3 +147,15 @@ var diatom = function diatom( name ){
 
 	return new Function( "return " + blueprint.replace( /\n/gm, "" ) )( );
 };
+
+if( typeof module != "undefined" ){
+	module.exports = diatom;
+}
+
+if( typeof global != "undefined" ){
+	harden
+		.bind( diatom )( "globalize",
+			function globalize( ){
+				harden.bind( global )( "diatom", diatom );
+			} );
+}

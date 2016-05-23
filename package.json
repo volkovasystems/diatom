@@ -1,6 +1,6 @@
 {
   "name": "diatom",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Class blueprint",
   "main": "diatom.js",
   "scripts": {
@@ -24,6 +24,7 @@
   "dependencies": {
     "harden": "^0.2.0",
     "komento": "^0.2.1",
-    "raze": "0.0.0"
+    "raze": "0.0.0",
+    "titlelize": "^0.1.1"
   }
 }
