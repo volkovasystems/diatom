@@ -85,67 +85,74 @@ var diatom = function diatom( name ){
 	*/
 
 	if( !name ){
-		console.log( "fatal empty class name" );
+		console.log( "fatal, empty class name" );
 
 		throw new Error( "empty class name" );
 	}
 
 	if( !( /[A-Za-z][A-Za-z0-9]+/ ).test( name ) ){
-		console.log( "fatal name is not simple", name );
+		console.log( "fatal, name is not simple", name );
 
 		throw new Error( "name is not simple" );
 	}
 
-	name = titlelize( name )
+	name = titlelize( name );
 
-	var blueprint = komento( function template( ){
-		/*!
-			function {{name}}( option, callback ){
-				if( typeof raze == "undefined" ){
-					console.log( "raze is not defined",
-						"class built with diatom should use raze",
-						"install and include raze before using this class",
-						"{{name}}" );
-
-					throw new Error( "raze is not defined" );
-				}
-
-				var parameter = raze( arguments );
-
-				if( this instanceof {{name}} &&
-					parameter.length )
-				{
-					if( typeof this.initialize == "function" ){
-						this.initialize.apply( this, parameter );
-
-					}else{
-						console.log( "warning diatom class should have initialize method",
-							"proceeding without initialization",
+	try{
+		var blueprint = komento( function template( ){
+			/*!
+				function {{name}}( option, callback ){
+					if( typeof raze == "undefined" ){
+						console.log( "raze is not defined",
+							"class built with diatom should use raze",
+							"install and include raze before using this class",
 							"{{name}}" );
+
+						throw new Error( "raze is not defined" );
 					}
 
-					return this;
+					var parameter = raze( arguments );
 
-				}else if( this instanceof {{name}} &&
-					!parameter.length )
-				{
-					return this;
+					if( this instanceof {{name}} &&
+						parameter.length )
+					{
+						if( typeof this.initialize == "function" ){
+							this.initialize.apply( this, parameter );
 
-				}else if( !( this instanceof {{name}} ) &&
-					parameter.length )
-				{
-					return {{name}}.apply( new {{name}}( ), parameter );
+						}else{
+							console.log( "warning diatom class should have initialize method",
+								"proceeding without initialization",
+								"{{name}}" );
+						}
 
-				}else{
-					return {{name}}.apply( new {{name}}( ) );
-				}
-			};
-		*/
-	}, {
-		"name": name
-	} );
+						return this;
 
-	return new Function( "return " + blueprint.replace( /\n/gm, "" ) )( );
+					}else if( this instanceof {{name}} &&
+						!parameter.length )
+					{
+						return this;
+
+					}else if( !( this instanceof {{name}} ) &&
+						parameter.length )
+					{
+						return {{name}}.apply( new {{name}}( ), parameter );
+
+					}else{
+						return {{name}}.apply( new {{name}}( ) );
+					}
+				};
+			*/
+		}, {
+			"name": name
+		} );
+
+		return new Function( "return " + blueprint.replace( /\n/gm, "" ) )( );
+
+	}catch( error ){
+		console.log( "fatal, function is not created properly", error );
+
+		throw error;
+	}
 };
 
 if( typeof module != "undefined" ){
