@@ -90,7 +90,7 @@ var diatom = function diatom( name ){
 		throw new Error( "empty class name" );
 	}
 
-	if( !( /[A-Za-z][A-Za-z0-9]+/ ).test( name ) ){
+	if( !( /^[A-Za-z][A-Za-z0-9]+$/ ).test( name ) ){
 		console.log( "fatal, name is not simple", name );
 
 		throw new Error( "name is not simple" );
@@ -103,7 +103,7 @@ var diatom = function diatom( name ){
 			/*!
 				function {{name}}( option, callback ){
 					if( typeof raze == "undefined" ){
-						console.log( "raze is not defined",
+						console.log( "fatal, raze is not defined",
 							"class built with diatom should use raze",
 							"install and include raze before using this class",
 							"{{name}}" );
@@ -120,7 +120,7 @@ var diatom = function diatom( name ){
 							this.initialize.apply( this, parameter );
 
 						}else{
-							console.log( "warning diatom class should have initialize method",
+							console.log( "warning, diatom class should have initialize method",
 								"proceeding without initialization",
 								"{{name}}" );
 						}
@@ -142,9 +142,9 @@ var diatom = function diatom( name ){
 					}
 				};
 			*/
-		}, {
-			"name": name
-		} );
+		},
+
+		{ "name": name } );
 
 		return new Function( "return " + blueprint.replace( /\n/gm, "" ) )( );
 
@@ -157,12 +157,4 @@ var diatom = function diatom( name ){
 
 if( typeof module != "undefined" ){
 	module.exports = diatom;
-}
-
-if( typeof global != "undefined" ){
-	harden
-		.bind( diatom )( "globalize",
-			function globalize( ){
-				harden.bind( global )( "diatom", diatom );
-			} );
 }
