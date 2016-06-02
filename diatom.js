@@ -3,6 +3,7 @@
 /*:
 	@module-license:
 		The MIT License (MIT)
+		@mit-license
 
 		Copyright (@c) 2016 Richeve Siodina Bebedor
 		@email: richeve.bebedor@gmail.com
@@ -28,27 +29,37 @@
 
 	@module-configuration:
 		{
-			"packageName": "diatom",
-			"fileName": "diatom.js",
-			"moduleName": "diatom",
-			"authorName": "Richeve S. Bebedor",
-			"authorEMail": "richeve.bebedor@gmail.com",
-			"repository": "git@github.com:volkovasystems/diatom.git",
-			"testCase": "diatom-test.js",
-			"isGlobal": true
+			"package": "diatom",
+			"path": "diatom/diatom.js",
+			"file": "diatom.js",
+			"module": "diatom",
+			"author": "Richeve S. Bebedor",
+			"eMail": "richeve.bebedor@gmail.com",
+			"repository": "https://github.com/volkovasystems/diatom.git",
+			"test": "diatom-test.js",
+			"global": true
 		}
 	@end-module-configuration
 
 	@module-documentation:
 
 	@end-module-documentation
+
+	@include:
+		{
+			"harden": "harden",
+			"komento": "komento",
+			"llamalize": "llamalize",
+			"raze": "raze"
+		}
+	@end-include
 */
 
 if( typeof window == "undefined" ){
 	var harden = require( "harden" );
 	var komento = require( "komento" );
+	var llamalize = require( "llamalize" );
 	var raze = require( "raze" );
-	var titlelize = require( "titlelize" );
 }
 
 if( typeof window != "undefined" &&
@@ -64,15 +75,15 @@ if( typeof window != "undefined" &&
 }
 
 if( typeof window != "undefined" &&
-	!( "raze" in window ) )
+	!( "llamalize" in window ) )
 {
-	throw new Error( "raze is not defined" );
+	throw new Error( "llamalize is not defined" );
 }
 
 if( typeof window != "undefined" &&
-	!( "titlelize" in window ) )
+	!( "raze" in window ) )
 {
-	throw new Error( "titlelize is not defined" );
+	throw new Error( "raze is not defined" );
 }
 
 var diatom = function diatom( name ){
@@ -96,7 +107,7 @@ var diatom = function diatom( name ){
 		throw new Error( "name is not simple" );
 	}
 
-	name = titlelize( name );
+	name = llamalize( name, true );
 
 	try{
 		var blueprint = komento( function template( ){

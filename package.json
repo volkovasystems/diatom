@@ -1,9 +1,9 @@
 {
   "name": "diatom",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Class blueprint",
   "main": "diatom.js",
-  "scripts": { },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/volkovasystems/diatom.git"
@@ -20,9 +20,9 @@
   },
   "homepage": "https://github.com/volkovasystems/diatom#readme",
   "dependencies": {
-    "harden": "^0.2.0",
-    "komento": "^0.2.1",
-    "raze": "0.0.0",
-    "titlelize": "^0.1.1"
+    "harden": "^0.3.1",
+    "komento": "^0.2.3",
+    "llamalize": "^0.1.2",
+    "raze": "0.0.4"
   }
 }
