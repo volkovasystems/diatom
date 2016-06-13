@@ -60,6 +60,8 @@ if( typeof window == "undefined" ){
 	var komento = require( "komento" );
 	var llamalize = require( "llamalize" );
 	var raze = require( "raze" );
+
+	global.raze = raze;
 }
 
 if( typeof window != "undefined" &&

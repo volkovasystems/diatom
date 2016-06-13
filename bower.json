@@ -1,7 +1,7 @@
 {
   "name": "diatom",
   "description": "Class blueprint",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "diatom.js",
   "authors": [
     "Richeve S. Bebedor <richeve.bebedor@gmail.com>"
