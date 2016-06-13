@@ -143,6 +143,15 @@ var diatom = function diatom( name ){
 					}else if( this instanceof {{name}} &&
 						!parameter.length )
 					{
+						if( typeof this.initialize == "function" ){
+							this.initialize( );
+
+						}else{
+							console.log( "warning, diatom class should have initialize method",
+								"proceeding without initialization",
+								"{{name}}" );
+						}
+
 						return this;
 
 					}else if( !( this instanceof {{name}} ) &&
