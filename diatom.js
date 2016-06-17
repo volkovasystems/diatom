@@ -215,7 +215,7 @@ var diatom = function diatom( name ){
 					}else if( !( this instanceof {{name}} ) &&
 						parameter.length )
 					{
-						var _{{name}} = function _{{name}}{ return this; };
+						var _{{name}} = function _{{name}}( ){ return this; };
 
 						_{{name}} = heredito( _{{name}}, {{name}} );
 
@@ -224,13 +224,13 @@ var diatom = function diatom( name ){
 						return {{name}}.apply( new _{{name}}( ), parameter );
 
 					}else{
-						var _{{name}} = function _{{name}}{ return this; };
+						var _{{name}} = function _{{name}}( ){ return this; };
 
 						_{{name}} = heredito( _{{name}}, {{name}} );
 
 						_{{name}}.prototype.initialize = called( function initialize( ){ return this; } );
 
-						return {{name}}.apply( new {{name}}( ) );
+						return {{name}}.apply( new _{{name}}( ) );
 					}
 				};
 			*/
