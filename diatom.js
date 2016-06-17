@@ -165,12 +165,14 @@ var diatom = function diatom( name ){
 					{
 						if( typeof this.initialize == "function" ){
 							if( this.constructor.name == "_{{name}}" &&
-								this.parent.constructor.name == "{{name}}" &&
-								this.parent.initialize == "function" )
+								this.parent.name == "{{name}}" &&
+								typeof this.parent.prototype.initialize == "function" )
 							{
-								this.parent.initialize = called.bind( this )( this.parent.initialize );
+								var initialize = function initialize( ){
+									this.parent.prototype.initialize.bind( this ).apply( this, raze( arguments ) );
+								};
 
-								this.parent.initialize.apply( this, parameter );
+								called.bind( this )( initialize.bind( this ) ).apply( this, parameter );
 
 							}else{
 								this.initialize = called.bind( this )( this.initialize );
@@ -191,12 +193,14 @@ var diatom = function diatom( name ){
 					{
 						if( typeof this.initialize == "function" ){
 							if( this.constructor.name == "_{{name}}" &&
-								this.parent.constructor.name == "{{name}}" &&
-								this.parent.initialize == "function" )
+								this.parent.name == "{{name}}" &&
+								typeof this.parent.prototype.initialize == "function" )
 							{
-								this.parent.initialize = called.bind( this )( this.parent.initialize );
+								var initialize = function initialize( ){
+									this.parent.prototype.initialize.bind( this ).call( this );
+								};
 
-								this.parent.initialize( );
+								called.bind( this )( initialize.bind( this ) ).call( this );
 
 							}else{
 								this.initialize = called.bind( this )( this.initialize );
