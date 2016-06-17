@@ -56,18 +56,34 @@
 */
 
 if( typeof window == "undefined" ){
+	var called = require( "called" );
 	var harden = require( "harden" );
+	var heredito = require( "heredito" );
 	var komento = require( "komento" );
 	var llamalize = require( "llamalize" );
 	var raze = require( "raze" );
 
+	global.called = called;
+	global.heredito = heredito;
 	global.raze = raze;
+}
+
+if( typeof window != "undefined" &&
+	!( "called" in window ) )
+{
+	throw new Error( "called is not defined" );
 }
 
 if( typeof window != "undefined" &&
 	!( "harden" in window ) )
 {
 	throw new Error( "harden is not defined" );
+}
+
+if( typeof window != "undefined" &&
+	!( "heredito" in window ) )
+{
+	throw new Error( "heredito is not defined" );
 }
 
 if( typeof window != "undefined" &&
@@ -124,13 +140,43 @@ var diatom = function diatom( name ){
 						throw new Error( "raze is not defined" );
 					}
 
+					if( typeof heredito == "undefined" ){
+						console.log( "fatal, heredito is not defined",
+							"class built with diatom should use heredito",
+							"install and include heredito before using this class",
+							"{{name}}" );
+
+						throw new Error( "heredito is not defined" );
+					}
+
+					if( typeof called == "undefined" ){
+						console.log( "fatal, called is not defined",
+							"class built with diatom should use called",
+							"install and include called before using this class",
+							"{{name}}" );
+
+						throw new Error( "called is not defined" );
+					}
+
 					var parameter = raze( arguments );
 
 					if( this instanceof {{name}} &&
 						parameter.length )
 					{
 						if( typeof this.initialize == "function" ){
-							this.initialize.apply( this, parameter );
+							if( this.constructor.name == "_{{name}}" &&
+								this.parent.constructor.name == "{{name}}" &&
+								this.parent.initialize == "function" )
+							{
+								this.parent.initialize = called.bind( this )( this.parent.initialize );
+
+								this.parent.initialize.apply( this, parameter );
+
+							}else{
+								this.initialize = called.bind( this )( this.initialize );
+
+								this.initialize.apply( this, parameter );
+							}
 
 						}else{
 							console.log( "warning, diatom class should have initialize method",
@@ -144,7 +190,19 @@ var diatom = function diatom( name ){
 						!parameter.length )
 					{
 						if( typeof this.initialize == "function" ){
-							this.initialize( );
+							if( this.constructor.name == "_{{name}}" &&
+								this.parent.constructor.name == "{{name}}" &&
+								this.parent.initialize == "function" )
+							{
+								this.parent.initialize = called.bind( this )( this.parent.initialize );
+
+								this.parent.initialize( );
+
+							}else{
+								this.initialize = called.bind( this )( this.initialize );
+
+								this.initialize( );
+							}
 
 						}else{
 							console.log( "warning, diatom class should have initialize method",
@@ -157,9 +215,21 @@ var diatom = function diatom( name ){
 					}else if( !( this instanceof {{name}} ) &&
 						parameter.length )
 					{
-						return {{name}}.apply( new {{name}}( ), parameter );
+						var _{{name}} = function _{{name}}{ return this; };
+
+						_{{name}} = heredito( _{{name}}, {{name}} );
+
+						_{{name}}.prototype.initialize = called( function initialize( ){ return this; } );
+
+						return {{name}}.apply( new _{{name}}( ), parameter );
 
 					}else{
+						var _{{name}} = function _{{name}}{ return this; };
+
+						_{{name}} = heredito( _{{name}}, {{name}} );
+
+						_{{name}}.prototype.initialize = called( function initialize( ){ return this; } );
+
 						return {{name}}.apply( new {{name}}( ) );
 					}
 				};
