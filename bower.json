@@ -1,7 +1,7 @@
 {
   "name": "diatom",
   "description": "Class blueprint",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "main": "diatom.js",
   "authors": [
     "Richeve S. Bebedor <richeve.bebedor@gmail.com>"
@@ -21,11 +21,11 @@
     "tests"
   ],
   "dependencies": {
-    "called": "^0.0.4",
-    "harden": "^0.3.1",
-    "heredito": "^0.2.4",
-    "komento": "^0.2.3",
+    "harden": "^0.3.2",
+    "komento": "^0.2.4",
     "llamalize": "^0.1.2",
-    "raze": "^0.0.4"
+    "raze": "^0.0.5",
+    "heredito": "^0.4.0",
+    "called": "^0.0.5"
   }
 }
