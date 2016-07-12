@@ -64,6 +64,7 @@ if( typeof window == "undefined" ){
 	var raze = require( "raze" );
 
 	global.called = called;
+	global.harden = harden;
 	global.heredito = heredito;
 	global.raze = raze;
 }
