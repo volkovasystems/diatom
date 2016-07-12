@@ -1,7 +1,7 @@
 {
   "name": "diatom",
+  "version": "0.1.0",
   "description": "Class blueprint",
-  "version": "0.0.10",
   "main": "diatom.js",
   "authors": [
     "Richeve S. Bebedor <richeve.bebedor@gmail.com>"
@@ -25,7 +25,7 @@
     "komento": "^0.2.4",
     "llamalize": "^0.1.2",
     "raze": "^0.0.5",
-    "heredito": "^0.4.0",
-    "called": "^0.0.5"
+    "called": "^0.0.5",
+    "heredito": "^0.5.0"
   }
 }

@@ -104,6 +104,9 @@ if( typeof window != "undefined" &&
 	throw new Error( "raze is not defined" );
 }
 
+harden( "DELEGATE_INSTANCE", "delegate-instance" );
+harden( "DELEGATE_CLASS", "delegate-class" );
+
 var diatom = function diatom( name ){
 	/*:
 		@meta-configuration:
@@ -169,10 +172,12 @@ var diatom = function diatom( name ){
 								typeof this.parent.prototype.initialize == "function" )
 							{
 								var initialize = function initialize( ){
-									this.parent.prototype.initialize.bind( this ).apply( this, raze( arguments ) );
+									this.parent.prototype.initialize.bind( this )
+										.apply( this, raze( arguments ) );
 								};
 
-								called.bind( this )( initialize.bind( this ) ).apply( this, parameter );
+								called.bind( this )( initialize.bind( this ) )
+									.apply( this, parameter );
 
 							}else{
 								this.initialize = called.bind( this )( this.initialize );
@@ -223,7 +228,14 @@ var diatom = function diatom( name ){
 
 						_{{name}} = heredito( _{{name}}, {{name}} );
 
-						_{{name}}.prototype.initialize = called( function initialize( ){ return this; } );
+						harden( "name", "{{name}}", _{{name}} );
+						harden( "DELEGATE_CLASS", "delegate-class", _{{name}} );
+
+						_{{name}}.prototype.initialize = called( function initialize( ){
+							harden( "DELEGATE_INSTANCE", "delegate-instance", this );
+
+							return this;
+						} );
 
 						return {{name}}.apply( new _{{name}}( ), parameter );
 
@@ -232,7 +244,14 @@ var diatom = function diatom( name ){
 
 						_{{name}} = heredito( _{{name}}, {{name}} );
 
-						_{{name}}.prototype.initialize = called( function initialize( ){ return this; } );
+						harden( "name", "{{name}}", _{{name}} );
+						harden( "DELEGATE_CLASS", "delegate-class", _{{name}} );
+
+						_{{name}}.prototype.initialize = called( function initialize( ){
+							harden( "DELEGATE_INSTANCE", "delegate-instance", this );
+
+							return this;
+						} );
 
 						return {{name}}.apply( new _{{name}}( ) );
 					}
