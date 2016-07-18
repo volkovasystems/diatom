@@ -1,6 +1,6 @@
 "use strict";
 
-/*:
+/*;
 	@module-license:
 		The MIT License (MIT)
 		@mit-license
@@ -47,7 +47,6 @@
 
 	@include:
 		{
-			"called": "called",
 			"excursio": "excursio",
 			"komento": "komento",
 			"llamalize": "llamalize",
@@ -57,21 +56,13 @@
 */
 
 if( typeof window == "undefined" ){
-	var called = require( "called" );
 	var excursio = require( "excursio" );
 	var komento = require( "komento" );
 	var llamalize = require( "llamalize" );
 	var raze = require( "raze" );
 
-	global.called = called;
 	global.excursio = excursio;
 	global.raze = raze;
-}
-
-if( typeof window != "undefined" &&
-	!( "called" in window ) )
-{
-	throw new Error( "called is not defined" );
 }
 
 if( typeof window != "undefined" &&
@@ -99,7 +90,7 @@ if( typeof window != "undefined" &&
 }
 
 var diatom = function diatom( name ){
-	/*:
+	/*;
 		@meta-configuration:
 			{
 				"name:required": "string"
@@ -131,8 +122,6 @@ var diatom = function diatom( name ){
 						parameter.length )
 					{
 						if( typeof this.initialize == "function" ){
-							this.initialize = called.bind( this )( this.initialize );
-
 							this.initialize.apply( this, parameter );
 
 						}else{
@@ -147,8 +136,6 @@ var diatom = function diatom( name ){
 						!parameter.length )
 					{
 						if( typeof this.initialize == "function" ){
-							this.initialize = called.bind( this )( this.initialize );
-
 							this.initialize( );
 
 						}else{
