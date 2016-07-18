@@ -47,7 +47,8 @@
 
 	@include:
 		{
-			"harden": "harden",
+			"called": "called",
+			"excursio": "excursio",
 			"komento": "komento",
 			"llamalize": "llamalize",
 			"raze": "raze"
@@ -57,15 +58,13 @@
 
 if( typeof window == "undefined" ){
 	var called = require( "called" );
-	var harden = require( "harden" );
-	var heredito = require( "heredito" );
+	var excursio = require( "excursio" );
 	var komento = require( "komento" );
 	var llamalize = require( "llamalize" );
 	var raze = require( "raze" );
 
 	global.called = called;
-	global.harden = harden;
-	global.heredito = heredito;
+	global.excursio = excursio;
 	global.raze = raze;
 }
 
@@ -76,15 +75,9 @@ if( typeof window != "undefined" &&
 }
 
 if( typeof window != "undefined" &&
-	!( "harden" in window ) )
+	!( "excursio" in window ) )
 {
-	throw new Error( "harden is not defined" );
-}
-
-if( typeof window != "undefined" &&
-	!( "heredito" in window ) )
-{
-	throw new Error( "heredito is not defined" );
+	throw new Error( "excursio is not defined" );
 }
 
 if( typeof window != "undefined" &&
@@ -104,9 +97,6 @@ if( typeof window != "undefined" &&
 {
 	throw new Error( "raze is not defined" );
 }
-
-harden( "DELEGATE_INSTANCE", "delegate-instance" );
-harden( "DELEGATE_CLASS", "delegate-class" );
 
 var diatom = function diatom( name ){
 	/*:
@@ -135,56 +125,15 @@ var diatom = function diatom( name ){
 		var blueprint = komento( function template( ){
 			/*!
 				function {{name}}( option, callback ){
-					if( typeof raze == "undefined" ){
-						console.log( "fatal, raze is not defined",
-							"class built with diatom should use raze",
-							"install and include raze before using this class",
-							"{{name}}" );
-
-						throw new Error( "raze is not defined" );
-					}
-
-					if( typeof heredito == "undefined" ){
-						console.log( "fatal, heredito is not defined",
-							"class built with diatom should use heredito",
-							"install and include heredito before using this class",
-							"{{name}}" );
-
-						throw new Error( "heredito is not defined" );
-					}
-
-					if( typeof called == "undefined" ){
-						console.log( "fatal, called is not defined",
-							"class built with diatom should use called",
-							"install and include called before using this class",
-							"{{name}}" );
-
-						throw new Error( "called is not defined" );
-					}
-
 					var parameter = raze( arguments );
 
 					if( this instanceof {{name}} &&
 						parameter.length )
 					{
 						if( typeof this.initialize == "function" ){
-							if( this.constructor.name == "_{{name}}" &&
-								this.parent.name == "{{name}}" &&
-								typeof this.parent.prototype.initialize == "function" )
-							{
-								var initialize = function initialize( ){
-									this.parent.prototype.initialize.bind( this )
-										.apply( this, raze( arguments ) );
-								};
+							this.initialize = called.bind( this )( this.initialize );
 
-								called.bind( this )( initialize.bind( this ) )
-									.apply( this, parameter );
-
-							}else{
-								this.initialize = called.bind( this )( this.initialize );
-
-								this.initialize.apply( this, parameter );
-							}
+							this.initialize.apply( this, parameter );
 
 						}else{
 							console.log( "warning, diatom class should have initialize method",
@@ -198,21 +147,9 @@ var diatom = function diatom( name ){
 						!parameter.length )
 					{
 						if( typeof this.initialize == "function" ){
-							if( this.constructor.name == "_{{name}}" &&
-								this.parent.name == "{{name}}" &&
-								typeof this.parent.prototype.initialize == "function" )
-							{
-								var initialize = function initialize( ){
-									this.parent.prototype.initialize.bind( this ).call( this );
-								};
+							this.initialize = called.bind( this )( this.initialize );
 
-								called.bind( this )( initialize.bind( this ) ).call( this );
-
-							}else{
-								this.initialize = called.bind( this )( this.initialize );
-
-								this.initialize( );
-							}
+							this.initialize( );
 
 						}else{
 							console.log( "warning, diatom class should have initialize method",
@@ -225,36 +162,16 @@ var diatom = function diatom( name ){
 					}else if( !( this instanceof {{name}} ) &&
 						parameter.length )
 					{
-						var _{{name}} = function _{{name}}( ){ return this; };
-
-						_{{name}} = heredito( _{{name}}, {{name}} );
-
-						harden( "name", "{{name}}", _{{name}} );
-						harden( "DELEGATE_CLASS", "delegate-class", _{{name}} );
-
-						_{{name}}.prototype.initialize = called( function initialize( ){
-							harden( "DELEGATE_INSTANCE", "delegate-instance", this );
-
-							return this;
-						} );
-
-						return {{name}}.apply( new _{{name}}( ), parameter );
+						return excursio( "function delegate( @parameter ){ return new this( @parameter ); }"
+							.replace( /\@parameter/g,
+								parameter.map( function onEachParameter( _parameter, index ){
+									return "abcdefghijklmnopqrstuvwxyz"[ index ];
+								} ).join( "," ) ) )
+							.apply( {{name}}, parameter );
 
 					}else{
-						var _{{name}} = function _{{name}}( ){ return this; };
-
-						_{{name}} = heredito( _{{name}}, {{name}} );
-
-						harden( "name", "{{name}}", _{{name}} );
-						harden( "DELEGATE_CLASS", "delegate-class", _{{name}} );
-
-						_{{name}}.prototype.initialize = called( function initialize( ){
-							harden( "DELEGATE_INSTANCE", "delegate-instance", this );
-
-							return this;
-						} );
-
-						return {{name}}.apply( new _{{name}}( ) );
+						return excursio( "function delegate( ){ return new this( ); }" )
+							.call( {{name}} );
 					}
 				};
 			*/

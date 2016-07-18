@@ -1,6 +1,6 @@
 {
   "name": "diatom",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Class blueprint",
   "main": "diatom.js",
   "scripts": {},
@@ -21,8 +21,7 @@
   "homepage": "https://github.com/volkovasystems/diatom#readme",
   "dependencies": {
     "called": "0.0.5",
-    "harden": "^0.3.2",
-    "heredito": "^0.5.0",
+    "excursio": "0.0.4",
     "komento": "^0.2.4",
     "llamalize": "^0.1.2",
     "raze": "0.0.5"
