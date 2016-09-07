@@ -1,5 +1,3 @@
-"use strict";
-
 /*;
 	@module-license:
 		The MIT License (MIT)
@@ -99,14 +97,10 @@ var diatom = function diatom( name ){
 	*/
 
 	if( !name ){
-		console.log( "fatal, empty class name" );
-
 		throw new Error( "empty class name" );
 	}
 
-	if( !( /^[A-Za-z][A-Za-z0-9]+$/ ).test( name ) ){
-		console.log( "fatal, name is not simple", name );
-
+	if( !( /^[A-Z][A-Za-z0-9]+$/ ).test( name ) ){
 		throw new Error( "name is not simple" );
 	}
 
@@ -123,11 +117,6 @@ var diatom = function diatom( name ){
 					{
 						if( typeof this.initialize == "function" ){
 							this.initialize.apply( this, parameter );
-
-						}else{
-							console.log( "warning, diatom class should have initialize method",
-								"proceeding without initialization",
-								"{{name}}" );
 						}
 
 						return this;
@@ -137,11 +126,6 @@ var diatom = function diatom( name ){
 					{
 						if( typeof this.initialize == "function" ){
 							this.initialize( );
-
-						}else{
-							console.log( "warning, diatom class should have initialize method",
-								"proceeding without initialization",
-								"{{name}}" );
 						}
 
 						return this;
@@ -169,9 +153,7 @@ var diatom = function diatom( name ){
 		return new Function( "return " + blueprint.replace( /\n/gm, "" ) )( );
 
 	}catch( error ){
-		console.log( "fatal, function is not created properly", error );
-
-		throw error;
+		throw new Error( "function not created properly, " + error.stack );
 	}
 };
 
