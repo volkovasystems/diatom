@@ -40,54 +40,40 @@
 	@end-module-configuration
 
 	@module-documentation:
-
+		Class blueprint.
 	@end-module-documentation
 
 	@include:
 		{
-			"excursio": "excursio",
+			"falzy": "falzy",
 			"komento": "komento",
 			"llamalize": "llamalize",
-			"raze": "raze"
+			"protype": "protype"
 		}
 	@end-include
 */
 
-if( typeof window == "undefined" ){
-	var excursio = require( "excursio" );
-	var komento = require( "komento" );
-	var llamalize = require( "llamalize" );
-	var raze = require( "raze" );
+const falzy = require( "falzy" );
+const komento = require( "komento" );
+const llamalize = require( "llamalize" );
+const protype = require( "protype" );
 
-	global.excursio = excursio;
-	global.raze = raze;
-}
+//: @support-module:
+	//: @reference: https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/from
+	Array.from||(Array.from=function(){var r=Object.prototype.toString,n=function(n){
+	return"function"==typeof n||"[object Function]"===r.call(n)},t=function(r){var n=Number(r);
+	return isNaN(n)?0:0!==n&&isFinite(n)?(n>0?1:-1)*Math.floor(Math.abs(n)):n},
+	e=Math.pow(2,53)-1,o=function(r){var n=t(r);return Math.min(Math.max(n,0),e)};
+	return function(r){var t=this,e=Object(r);
+	if(null==r)throw new TypeError("Array.from requires an array-like object - not null or undefined");
+	var a,u=arguments.length>1?arguments[1]:void 0;if("undefined"!=typeof u){
+	if(!n(u))throw new TypeError("Array.from: when provided, the second argument must be a function");
+	arguments.length>2&&(a=arguments[2])}for(var i,f=o(e.length),c=n(t)?
+	Object(new t(f)):new Array(f),h=0;f>h;)i=e[h],
+	u?c[h]="undefined"==typeof a?u(i,h):u.call(a,i,h):c[h]=i,h+=1;return c.length=f,c}}());
+//: @end-support-module
 
-if( typeof window != "undefined" &&
-	!( "excursio" in window ) )
-{
-	throw new Error( "excursio is not defined" );
-}
-
-if( typeof window != "undefined" &&
-	!( "komento" in window ) )
-{
-	throw new Error( "komento is not defined" );
-}
-
-if( typeof window != "undefined" &&
-	!( "llamalize" in window ) )
-{
-	throw new Error( "llamalize is not defined" );
-}
-
-if( typeof window != "undefined" &&
-	!( "raze" in window ) )
-{
-	throw new Error( "raze is not defined" );
-}
-
-var diatom = function diatom( name ){
+const diatom = function diatom( name ){
 	/*;
 		@meta-configuration:
 			{
@@ -96,8 +82,8 @@ var diatom = function diatom( name ){
 		@end-meta-configuration
 	*/
 
-	if( !name ){
-		throw new Error( "empty class name" );
+	if( !protype( name, STRING ) || falzy( name ) ){
+		throw new Error( "invalid name" );
 	}
 
 	if( !( /^[A-Z][A-Za-z0-9]+$/ ).test( name ) ){
@@ -107,42 +93,47 @@ var diatom = function diatom( name ){
 	name = llamalize( name, true );
 
 	try{
-		var blueprint = komento( function template( ){
+		let blueprint = komento( function template( ){
 			/*!
 				function {{name}}( option, callback ){
-					var parameter = raze( arguments );
+					var parameter = Array.from( arguments );
 
-					if( this instanceof {{name}} &&
-						parameter.length )
-					{
+					var template = "( function evaluate( ){ var result = undefined; @body return result; } ).bind( @bind )( )"
+						.replace( "@bind", "( typeof global != 'undefined' )? global : ( typeof window != 'undefined' )? window : this" )
+						.replace( "@body", "try{ result = ( @expression ); }catch( error ){ @error }" )
+						.replace( "@error", "throw new Error( 'error executing expression, ' + error );" );
+
+					if( this instanceof {{name}} && parameter.length ){
 						if( typeof this.initialize == "function" ){
 							this.initialize.apply( this, parameter );
 						}
 
 						return this;
 
-					}else if( this instanceof {{name}} &&
-						!parameter.length )
-					{
+					}else if( this instanceof {{name}} && !parameter.length ){
 						if( typeof this.initialize == "function" ){
 							this.initialize( );
 						}
 
 						return this;
 
-					}else if( !( this instanceof {{name}} ) &&
-						parameter.length )
-					{
-						return excursio( "function delegate( @parameter ){ return new this( @parameter ); }"
+					}else if( !( this instanceof {{name}} ) && parameter.length ){
+						var expression = "function delegate( @parameter ){ return new this( @parameter ); }"
 							.replace( /\@parameter/g,
-								parameter.map( function onEachParameter( _parameter, index ){
+								parameter.map( function onEachParameter( item, index ){
 									return "abcdefghijklmnopqrstuvwxyz"[ index ];
-								} ).join( "," ) ) )
-							.apply( {{name}}, parameter );
+								} ).join( "," ) );
+
+						expression = template.replace( "@expression", expression );
+
+						return eval( expression ).apply( {{name}}, parameter );
 
 					}else{
-						return excursio( "function delegate( ){ return new this( ); }" )
-							.call( {{name}} );
+						var expression = "function delegate( ){ return new this( ); }";
+
+						expression = template.replace( "@expression", expression );
+
+						return eval( expression ).call( {{name}} );
 					}
 				};
 			*/
@@ -150,13 +141,11 @@ var diatom = function diatom( name ){
 
 		{ "name": name } );
 
-		return new Function( "return " + blueprint.replace( /\n/gm, "" ) )( );
+		return new Function( `return ${ blueprint }` )( );
 
 	}catch( error ){
-		throw new Error( "function not created properly, " + error.stack );
+		throw new Error( `function not created properly, ${ error }` );
 	}
 };
 
-if( typeof module != "undefined" ){
-	module.exports = diatom;
-}
+module.exports = diatom;

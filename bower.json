@@ -1,6 +1,6 @@
 {
   "name": "diatom",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Class blueprint",
   "main": "diatom.js",
   "authors": [
@@ -21,9 +21,9 @@
     "tests"
   ],
   "dependencies": {
-    "excursio": "^0.0.8",
-    "komento": "^0.2.5",
-    "llamalize": "^0.2.1",
-    "raze": "^0.0.8"
+    "falzy": "^0.5.0",
+    "komento": "^0.5.0",
+    "llamalize": "^0.4.0",
+    "protype": "^0.4.0"
   }
 }
