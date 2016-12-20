@@ -1,9 +1,14 @@
 {
   "name": "diatom",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Class blueprint",
   "main": "diatom.js",
-  "scripts": {},
+  "support": "diatom.support.js",
+  "deploy": "diatom.deploy.js",
+  "scripts": {
+    "build": "babel diatom.js -o diatom.support.js && webpack",
+    "test": "mocha diatom-test.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/volkovasystems/diatom.git"
@@ -14,6 +19,9 @@
     "genesis"
   ],
   "author": "Richeve S. Bebedor <richeve.bebedor@gmail.com>",
+  "contributors": [
+    "John Lenon Maghanoy <johnlenonmaghanoy@gmail.com>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/volkovasystems/diatom/issues"

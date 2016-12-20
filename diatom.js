@@ -32,6 +32,9 @@
 			"file": "diatom.js",
 			"module": "diatom",
 			"author": "Richeve S. Bebedor",
+			"contributors": [
+				"John Lenon Maghanoy <johnlenonmaghanoy@gmail.com>"
+			],
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/diatom.git",
 			"test": "diatom-test.js",
