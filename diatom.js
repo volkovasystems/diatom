@@ -32,6 +32,9 @@
 			"file": "diatom.js",
 			"module": "diatom",
 			"author": "Richeve S. Bebedor",
+			"contributors": [
+				"John Lenon Maghanoy <johnlenonmaghanoy@gmail.com>"
+			],
 			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/diatom.git",
 			"test": "diatom-test.js",
@@ -94,7 +97,7 @@ const diatom = function diatom( name ){
 
 	try{
 		let blueprint = komento( function template( ){
-			/*!
+			return `
 				function {{name}}( option, callback ){
 					var parameter = Array.from( arguments );
 
@@ -136,7 +139,7 @@ const diatom = function diatom( name ){
 						return eval( expression ).call( {{name}} );
 					}
 				};
-			*/
+			`;
 		},
 
 		{ "name": name } );
