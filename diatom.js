@@ -97,7 +97,7 @@ const diatom = function diatom( name ){
 
 	try{
 		let blueprint = komento( function template( ){
-			/*!
+			return `
 				function {{name}}( option, callback ){
 					var parameter = Array.from( arguments );
 
@@ -139,7 +139,7 @@ const diatom = function diatom( name ){
 						return eval( expression ).call( {{name}} );
 					}
 				};
-			*/
+			`;
 		},
 
 		{ "name": name } );
