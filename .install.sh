@@ -1,5 +1,7 @@
 yarn add \
 babel-runtime \
+arid \
+budge \
 falzy \
 komento \
 llamalize \
@@ -14,6 +16,8 @@ source-map-loader \
 webpack \
 --dev && \
 bower install \
+arid \
+budge \
 falzy \
 komento \
 llamalize \

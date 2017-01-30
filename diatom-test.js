@@ -2,4 +2,9 @@
 
 const diatom = require( "./diatom.js" );
 
-console.log( diatom( "Merchant" ).toString( ) );
+const Merchant = diatom( "Merchant" );
+Merchant.prototype.initialize = function initialize( hello, world, yeah ){
+	console.log( arguments );
+};
+
+Merchant( "hello", "world", "yeah" );

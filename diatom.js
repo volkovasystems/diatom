@@ -50,6 +50,8 @@
 
 	@include:
 		{
+			"arid": "arid",
+			"budge": "budge",
 			"falzy": "falzy",
 			"komento": "komento",
 			"llamalize": "llamalize",
@@ -58,10 +60,14 @@
 	@end-include
 */
 
+const arid = require( "arid" );
+const budge = require( "budge" );
 const falzy = require( "falzy" );
 const komento = require( "komento" );
 const llamalize = require( "llamalize" );
 const protype = require( "protype" );
+
+const template = require( "./template.js" );
 
 //: @support-module:
 	//: @reference: https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/from
@@ -78,11 +84,12 @@ const protype = require( "protype" );
 	u?c[h]="undefined"==typeof a?u(i,h):u.call(a,i,h):c[h]=i,h+=1;return c.length=f,c}}());
 //: @end-support-module
 
-const diatom = function diatom( name ){
+const diatom = function diatom( name, parameter ){
 	/*;
 		@meta-configuration:
 			{
-				"name:required": "string"
+				"name:required": "string",
+				"parameter": "...string"
 			}
 		@end-meta-configuration
 	*/
@@ -95,56 +102,16 @@ const diatom = function diatom( name ){
 		throw new Error( "name is not simple" );
 	}
 
+	parameter = budge( arguments );
+
+	if( arid( parameter ) ){
+		parameter = [ "option", "callback" ];
+	}
+
 	name = llamalize( name, true );
 
 	try{
-		let blueprint = komento( function template( ){
-			return `
-				function {{name}}( option, callback ){
-					var parameter = Array.from( arguments );
-
-					var template = "( function evaluate( ){ var result = undefined; @body return result; } ).bind( @bind )( )"
-						.replace( "@bind", "( typeof global != 'undefined' )? global : ( typeof window != 'undefined' )? window : this" )
-						.replace( "@body", "try{ result = ( @expression ); }catch( error ){ @error }" )
-						.replace( "@error", "throw new Error( 'error executing expression, ' + error );" );
-
-					if( this instanceof {{name}} && parameter.length ){
-						if( typeof this.initialize == "function" ){
-							this.initialize.apply( this, parameter );
-						}
-
-						return this;
-
-					}else if( this instanceof {{name}} && !parameter.length ){
-						if( typeof this.initialize == "function" ){
-							this.initialize( );
-						}
-
-						return this;
-
-					}else if( !( this instanceof {{name}} ) && parameter.length ){
-						var expression = "function delegate( @parameter ){ return new this( @parameter ); }"
-							.replace( /\@parameter/g,
-								parameter.map( function onEachParameter( item, index ){
-									return "abcdefghijklmnopqrstuvwxyz"[ index ];
-								} ).join( "," ) );
-
-						expression = template.replace( "@expression", expression );
-
-						return eval( expression ).apply( {{name}}, parameter );
-
-					}else{
-						var expression = "function delegate( ){ return new this( ); }";
-
-						expression = template.replace( "@expression", expression );
-
-						return eval( expression ).call( {{name}} );
-					}
-				};
-			`;
-		},
-
-		{ "name": name } );
+		let blueprint = komento( template, { "name": name, "parameter": parameter.join( "," ) } );
 
 		return new Function( `return ${ blueprint }` )( );
 
