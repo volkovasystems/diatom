@@ -1,10 +1,8 @@
 {
   "name": "diatom",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Class blueprint",
-  "main": "diatom.js",
-  "support": "diatom.support.js",
-  "deploy": "diatom.deploy.js",
+  "main": "diatom.deploy.js",
   "authors": [
     "Richeve S. Bebedor <richeve.bebedor@gmail.com>",
     "John Lenon Maghanoy <johnlenonmaghanoy@gmail.com>"
