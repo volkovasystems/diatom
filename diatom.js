@@ -69,21 +69,6 @@ const protype = require( "protype" );
 
 const template = require( "./template.js" );
 
-//: @support-module:
-	//: @reference: https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/from
-	Array.from||(Array.from=function(){var r=Object.prototype.toString,n=function(n){
-	return"function"==typeof n||"[object Function]"===r.call(n)},t=function(r){var n=Number(r);
-	return isNaN(n)?0:0!==n&&isFinite(n)?(n>0?1:-1)*Math.floor(Math.abs(n)):n},
-	e=Math.pow(2,53)-1,o=function(r){var n=t(r);return Math.min(Math.max(n,0),e)};
-	return function(r){var t=this,e=Object(r);
-	if(null==r)throw new TypeError("Array.from requires an array-like object - not null or undefined");
-	var a,u=arguments.length>1?arguments[1]:void 0;if("undefined"!=typeof u){
-	if(!n(u))throw new TypeError("Array.from: when provided, the second argument must be a function");
-	arguments.length>2&&(a=arguments[2])}for(var i,f=o(e.length),c=n(t)?
-	Object(new t(f)):new Array(f),h=0;f>h;)i=e[h],
-	u?c[h]="undefined"==typeof a?u(i,h):u.call(a,i,h):c[h]=i,h+=1;return c.length=f,c}}());
-//: @end-support-module
-
 const diatom = function diatom( name, parameter ){
 	/*;
 		@meta-configuration:
@@ -94,7 +79,7 @@ const diatom = function diatom( name, parameter ){
 		@end-meta-configuration
 	*/
 
-	if( !protype( name, STRING ) || falzy( name ) ){
+	if( falzy( name ) || !protype( name, STRING ) ){
 		throw new Error( "invalid name" );
 	}
 
@@ -116,7 +101,7 @@ const diatom = function diatom( name, parameter ){
 		return new Function( `return ${ blueprint }` )( );
 
 	}catch( error ){
-		throw new Error( `function not created properly, ${ error }` );
+		throw new Error( `function not created properly, ${ error.stack }` );
 	}
 };
 

@@ -9,7 +9,7 @@ const template = function template( ){
 				var template = "( function evaluate( ){ var result = undefined; @body return result; } ).bind( @bind )( )"
 					.replace( "@bind", "( typeof global != 'undefined' )? global : ( typeof window != 'undefined' )? window : this" )
 					.replace( "@body", "try{ result = ( @expression ); }catch( error ){ @error }" )
-					.replace( "@error", "throw new Error( 'error executing expression, ' + error );" );
+					.replace( "@error", "throw new Error( 'error executing expression, ' + error.stack );" );
 
 				if( this instanceof {{{ name }}} && parameter.length ){
 					if( typeof this.initialize == "function" ){
@@ -61,7 +61,7 @@ const template = function template( ){
 				}
 
 			}catch( error ){
-				throw new Error( "error creating instance of {{{ name }}}, " + error );
+				throw new Error( "error creating instance of {{{ name }}}, " + error.stack );
 			}
 		};
 	`;
