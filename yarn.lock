@@ -774,12 +774,12 @@ browserify-zlib@^0.1.4:
   dependencies:
     pako "~0.2.0"
 
-budge@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/budge/-/budge-0.11.0.tgz#fd51033f2128350b32fc7c2a63c73b98cda23582"
+budge@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/budge/-/budge-0.12.0.tgz#96bbd33bdf8c41cf8659c1c899ca9fd0f68d2898"
   dependencies:
     babel-runtime "^6.23.0"
-    depher "^0.12.0"
+    depher "^0.13.0"
     doubt "^0.16.0"
     raze "^0.18.0"
 
@@ -1026,9 +1026,9 @@ delegates@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
 
-dephall@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/dephall/-/dephall-0.10.0.tgz#4850558f7ec4d9a4c06fcbf7341137f2c939403a"
+dephall@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/dephall/-/dephall-0.11.0.tgz#24613341861c84a11c6750bd6e4987bb39632464"
   dependencies:
     arid "^0.14.0"
     babel-runtime "^6.23.0"
@@ -1039,12 +1039,12 @@ dephall@^0.10.0:
     pyck "^0.11.0"
     zelf "^0.8.0"
 
-depher@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/depher/-/depher-0.12.0.tgz#fb5e6dcba55bbb455e2dcb02ad74347653d9edee"
+depher@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/depher/-/depher-0.13.0.tgz#d4a94e3e7faaca0c718d2af24d7c7b7513192148"
   dependencies:
     babel-runtime "^6.23.0"
-    dephall "^0.10.0"
+    dephall "^0.11.0"
     doubt "^0.16.0"
     falze "^0.10.0"
     falzy "^0.13.0"
