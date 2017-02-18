@@ -1,6 +1,6 @@
 {
   "name": "diatom",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "Class blueprint",
   "main": "diatom.js",
   "support": "diatom.support.js",
