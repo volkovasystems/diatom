@@ -7,7 +7,7 @@
   "deploy": "diatom.deploy.js",
   "browser": "diatom.deploy.js",
   "scripts": {
-    "build": "babel diatom.js --out-file diatom.support.js && babel template.module.js -o template.js --source-maps && webpack --progress",
+    "build": "babel diatom.js --out-file diatom.support.js --source-maps && babel template.module.js -o template.js --source-maps && webpack --progress",
     "test": "mocha diatom-test.js"
   },
   "repository": {

@@ -22,4 +22,5 @@ falzy \
 komento \
 llamalize \
 protype \
---save
+--save \
+--force-latest
