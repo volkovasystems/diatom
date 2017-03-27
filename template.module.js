@@ -4,7 +4,7 @@ const template = function template( ){
 	return `
 		function {{{ name }}}( {{{ parameter }}} ){
 			try{
-				var parameter = Array.from( arguments );
+				let parameter = Array.from( arguments );
 
 				var template = "( function evaluate( ){ var result = undefined; @body return result; } ).bind( @bind )( )"
 					.replace( "@bind", "( typeof global != 'undefined' )? global : ( typeof window != 'undefined' )? window : this" )
@@ -29,7 +29,7 @@ const template = function template( ){
 					var variable = "{{{ parameter }}}".split( "," );
 					var initialize = {{{ name }}}.prototype.initialize;
 					if( typeof initialize == "function" ){
-						var pattern = /^function\\s+[a-zA-Z0-9\\_\\$]+\\s*\\(\\s*([a-zA-Z0-9\\_\\$\\s\\,]+?)\\s*\\)/;
+						let pattern = /^function\\s+[a-zA-Z0-9\\_\\$]+\\s*\\(\\s*([a-zA-Z0-9\\_\\$\\s\\,]+?)\\s*\\)/;
 
 						var argument = ( ( initialize.toString( )
 							.match( pattern ) || [ ] )[ 1 ] || "" )
