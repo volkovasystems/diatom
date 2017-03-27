@@ -3,6 +3,7 @@ babel-runtime \
 arid \
 budge \
 falzy \
+harden \
 komento \
 llamalize \
 protype \
@@ -19,6 +20,7 @@ bower install \
 arid \
 budge \
 falzy \
+harden \
 komento \
 llamalize \
 protype \

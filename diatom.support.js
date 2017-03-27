@@ -53,21 +53,26 @@
               			"arid": "arid",
               			"budge": "budge",
               			"falzy": "falzy",
+              			"harden": "harden",
               			"komento": "komento",
               			"llamalize": "llamalize",
               			"protype": "protype"
               		}
               	@end-include
-              */
+              */var _for = require("babel-runtime/core-js/symbol/for");var _for2 = _interopRequireDefault(_for);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 var arid = require("arid");
 var budge = require("budge");
 var falzy = require("falzy");
+var harden = require("harden");
 var komento = require("komento");
 var llamalize = require("llamalize");
 var protype = require("protype");
 
 var template = require("./template.js");
+
+harden("CLASS", (0, _for2.default)("class"));
+var CLASS_NAME_PATTERN = /^[A-Z][A-Za-z0-9]+$/;
 
 var diatom = function diatom(name, parameter) {
 	/*;
@@ -83,12 +88,23 @@ var diatom = function diatom(name, parameter) {
 		throw new Error("invalid name");
 	}
 
-	if (!/^[A-Z][A-Za-z0-9]+$/.test(name)) {
+	/*;
+   	@note:
+   		We want to ensure that the class created conforms to the conventional
+   			class namespace structure.
+   	@end-note
+   */
+	if (!CLASS_NAME_PATTERN.test(name)) {
 		throw new Error("name is not simple");
 	}
 
 	parameter = budge(arguments);
 
+	/*;
+                               	@note:
+                               		These are standard conventional default parameter.
+                               	@end-note
+                               */
 	if (arid(parameter)) {
 		parameter = ["option", "callback"];
 	}
@@ -98,7 +114,11 @@ var diatom = function diatom(name, parameter) {
 	try {
 		var blueprint = komento(template, { "name": name, "parameter": parameter.join(",") });
 
-		return new Function("return " + blueprint)();
+		blueprint = new Function("return " + blueprint)();
+
+		harden("CLASS", CLASS, blueprint);
+
+		return blueprint;
 
 	} catch (error) {
 		throw new Error("function not created properly, " + error.stack);
