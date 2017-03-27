@@ -1,13 +1,15 @@
 {
   "name": "diatom",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "description": "Class blueprint",
   "main": "diatom.js",
   "support": "diatom.support.js",
   "deploy": "diatom.deploy.js",
   "browser": "diatom.deploy.js",
   "scripts": {
-    "build": "babel diatom.js --out-file diatom.support.js --source-maps && babel template.module.js -o template.js --source-maps && webpack --progress --display-modules",
+    "build:template": "babel template.module.js -o template.js --source-maps",
+    "build:diatom": "babel diatom.js --out-file diatom.support.js --source-maps",
+    "build": "npm run build:template && npm run build:diatom && webpack --progress --display-modules",
     "test": "mocha diatom-test.js"
   },
   "repository": {
@@ -29,13 +31,14 @@
   },
   "homepage": "https://github.com/volkovasystems/diatom#readme",
   "dependencies": {
-    "arid": "^0.20.0",
+    "arid": "^0.22.0",
     "babel-runtime": "^6.23.0",
-    "budge": "^0.17.0",
-    "falzy": "^0.16.0",
-    "komento": "^0.18.0",
-    "llamalize": "^0.11.0",
-    "protype": "^0.20.0"
+    "budge": "^0.18.0",
+    "falzy": "^0.17.0",
+    "harden": "^0.21.0",
+    "komento": "^0.19.0",
+    "llamalize": "^0.12.0",
+    "protype": "^0.21.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
@@ -43,6 +46,6 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-latest": "^6.24.0",
     "source-map-loader": "^0.2.0",
-    "webpack": "^2.2.1"
+    "webpack": "^2.3.2"
   }
 }

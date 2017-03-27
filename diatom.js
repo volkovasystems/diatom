@@ -53,6 +53,7 @@
 			"arid": "arid",
 			"budge": "budge",
 			"falzy": "falzy",
+			"harden": "harden",
 			"komento": "komento",
 			"llamalize": "llamalize",
 			"protype": "protype"
@@ -63,11 +64,15 @@
 const arid = require( "arid" );
 const budge = require( "budge" );
 const falzy = require( "falzy" );
+const harden = require( "harden" );
 const komento = require( "komento" );
 const llamalize = require( "llamalize" );
 const protype = require( "protype" );
 
 const template = require( "./template.js" );
+
+harden( "CLASS", Symbol.for( "class" ) );
+const CLASS_NAME_PATTERN = /^[A-Z][A-Za-z0-9]+$/;
 
 const diatom = function diatom( name, parameter ){
 	/*;
@@ -83,12 +88,23 @@ const diatom = function diatom( name, parameter ){
 		throw new Error( "invalid name" );
 	}
 
-	if( !( /^[A-Z][A-Za-z0-9]+$/ ).test( name ) ){
+	/*;
+		@note:
+			We want to ensure that the class created conforms to the conventional
+				class namespace structure.
+		@end-note
+	*/
+	if( !CLASS_NAME_PATTERN.test( name ) ){
 		throw new Error( "name is not simple" );
 	}
 
 	parameter = budge( arguments );
 
+	/*;
+		@note:
+			These are standard conventional default parameter.
+		@end-note
+	*/
 	if( arid( parameter ) ){
 		parameter = [ "option", "callback" ];
 	}
@@ -98,7 +114,11 @@ const diatom = function diatom( name, parameter ){
 	try{
 		let blueprint = komento( template, { "name": name, "parameter": parameter.join( "," ) } );
 
-		return new Function( `return ${ blueprint }` )( );
+		blueprint = new Function( `return ${ blueprint }` )( );
+
+		harden( "CLASS", CLASS, blueprint );
+
+		return blueprint;
 
 	}catch( error ){
 		throw new Error( `function not created properly, ${ error.stack }` );
