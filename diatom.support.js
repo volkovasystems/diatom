@@ -53,7 +53,7 @@
               			"arid": "arid",
               			"budge": "budge",
               			"falzy": "falzy",
-              			"harden": "harden",
+              			"burne": "burne",
               			"komento": "komento",
               			"llamalize": "llamalize",
               			"protype": "protype"
@@ -63,15 +63,15 @@
 
 var arid = require("arid");
 var budge = require("budge");
+var burne = require("burne");
 var falzy = require("falzy");
-var harden = require("harden");
 var komento = require("komento");
 var llamalize = require("llamalize");
 var protype = require("protype");
 
 var template = require("./template.js");
 
-harden("CLASS", (0, _for2.default)("class"));
+var CLASS = (0, _for2.default)("class");
 var CLASS_NAME_PATTERN = /^[A-Z][A-Za-z0-9]+$/;
 
 var diatom = function diatom(name, parameter) {
@@ -95,7 +95,7 @@ var diatom = function diatom(name, parameter) {
    	@end-note
    */
 	if (!CLASS_NAME_PATTERN.test(name)) {
-		throw new Error("name is not simple");
+		throw new Error("name does not conform to conventional class name structure");
 	}
 
 	parameter = budge(arguments);
@@ -116,7 +116,7 @@ var diatom = function diatom(name, parameter) {
 
 		blueprint = new Function("return " + blueprint)();
 
-		harden("CLASS", CLASS, blueprint);
+		burne(CLASS, blueprint);
 
 		return blueprint;
 

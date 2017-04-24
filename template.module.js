@@ -35,6 +35,9 @@
 			"module": "diatom",
 			"author": "Richeve S. Bebedor",
 			"eMail": "richeve.bebedor@gmail.com",
+			"contributors": [
+				"John Lenon Maghanoy <johnlenonmaghanoy@gmail.com>"
+			],
 			"repository": "https://github.com/volkovasystems/diatom.git",
 			"test": "diatom-test.js",
 			"internal": true
@@ -90,8 +93,8 @@ const template = function template( ){
 						var argument = ( ( initialize.toString( )
 							.match( pattern ) || [ ] )[ 1 ] || "" )
 							.split( /\\,\\s*/ )
-							.map( ( variable ) => { return variable.trim( ); } )
-							.filter( ( variable ) => { return !!variable; } );
+							.map( function onEachParameter( variable ){ return variable.trim( ); } )
+							.filter( function onEachParameter( variable ){ return !!variable; } );
 
 						if( argument.length > 0 ){
 							variable = argument;

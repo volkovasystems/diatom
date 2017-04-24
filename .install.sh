@@ -2,8 +2,8 @@ yarn add \
 babel-runtime \
 arid \
 budge \
+burne \
 falzy \
-harden \
 komento \
 llamalize \
 protype \
@@ -19,8 +19,8 @@ webpack \
 bower install \
 arid \
 budge \
+burne \
 falzy \
-harden \
 komento \
 llamalize \
 protype \
