@@ -73,6 +73,7 @@ const template = require( "./template.js" );
 
 const CLASS = Symbol.for( "class" );
 const CLASS_NAME_PATTERN = /^[A-Z][A-Za-z0-9]+$/;
+const DIATOMIC = Symbol( "diatomic" );
 
 const diatom = function diatom( name, parameter ){
 	/*;
@@ -117,6 +118,8 @@ const diatom = function diatom( name, parameter ){
 		blueprint = new Function( `return ${ blueprint }` )( );
 
 		burne( CLASS, blueprint );
+
+		burne( DIATOMIC, blueprint );
 
 		return blueprint;
 

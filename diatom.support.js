@@ -59,7 +59,7 @@
               			"protype": "protype"
               		}
               	@end-include
-              */var _for = require("babel-runtime/core-js/symbol/for");var _for2 = _interopRequireDefault(_for);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+              */var _symbol = require("babel-runtime/core-js/symbol");var _symbol2 = _interopRequireDefault(_symbol);var _for = require("babel-runtime/core-js/symbol/for");var _for2 = _interopRequireDefault(_for);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 var arid = require("arid");
 var budge = require("budge");
@@ -73,6 +73,7 @@ var template = require("./template.js");
 
 var CLASS = (0, _for2.default)("class");
 var CLASS_NAME_PATTERN = /^[A-Z][A-Za-z0-9]+$/;
+var DIATOMIC = (0, _symbol2.default)("diatomic");
 
 var diatom = function diatom(name, parameter) {
 	/*;
@@ -117,6 +118,8 @@ var diatom = function diatom(name, parameter) {
 		blueprint = new Function("return " + blueprint)();
 
 		burne(CLASS, blueprint);
+
+		burne(DIATOMIC, blueprint);
 
 		return blueprint;
 
