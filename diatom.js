@@ -51,23 +51,23 @@
 	@include:
 		{
 			"arid": "arid",
-			"budge": "budge",
 			"falzy": "falzy",
 			"burne": "burne",
 			"komento": "komento",
 			"llamalize": "llamalize",
-			"protype": "protype"
+			"protype": "protype",
+			"shft": "shft"
 		}
 	@end-include
 */
 
 const arid = require( "arid" );
-const budge = require( "budge" );
 const burne = require( "burne" );
 const falzy = require( "falzy" );
 const komento = require( "komento" );
 const llamalize = require( "llamalize" );
 const protype = require( "protype" );
+const shft = require( "shft" );
 
 const template = require( "./template.js" );
 
@@ -99,7 +99,7 @@ const diatom = function diatom( name, parameter ){
 		throw new Error( "name does not conform to conventional class name structure" );
 	}
 
-	parameter = budge( arguments );
+	parameter = shft( arguments );
 
 	/*;
 		@note:
