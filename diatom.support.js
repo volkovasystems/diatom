@@ -51,23 +51,23 @@
               	@include:
               		{
               			"arid": "arid",
-              			"budge": "budge",
               			"falzy": "falzy",
               			"burne": "burne",
               			"komento": "komento",
               			"llamalize": "llamalize",
-              			"protype": "protype"
+              			"protype": "protype",
+              			"shft": "shft"
               		}
               	@end-include
               */var _symbol = require("babel-runtime/core-js/symbol");var _symbol2 = _interopRequireDefault(_symbol);var _for = require("babel-runtime/core-js/symbol/for");var _for2 = _interopRequireDefault(_for);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 var arid = require("arid");
-var budge = require("budge");
 var burne = require("burne");
 var falzy = require("falzy");
 var komento = require("komento");
 var llamalize = require("llamalize");
 var protype = require("protype");
+var shft = require("shft");
 
 var template = require("./template.js");
 
@@ -99,13 +99,13 @@ var diatom = function diatom(name, parameter) {
 		throw new Error("name does not conform to conventional class name structure");
 	}
 
-	parameter = budge(arguments);
+	parameter = shft(arguments);
 
 	/*;
-                               	@note:
-                               		These are standard conventional default parameter.
-                               	@end-note
-                               */
+                              	@note:
+                              		These are standard conventional default parameter.
+                              	@end-note
+                              */
 	if (arid(parameter)) {
 		parameter = ["option", "callback"];
 	}
