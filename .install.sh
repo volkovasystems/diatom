@@ -1,12 +1,12 @@
 yarn add \
 babel-runtime \
 arid \
-budge \
 burne \
 falzy \
 komento \
 llamalize \
 protype \
+shft \
 --save && \
 yarn add \
 babel-cli \
@@ -18,11 +18,11 @@ webpack \
 --dev && \
 bower install \
 arid \
-budge \
 burne \
 falzy \
 komento \
 llamalize \
 protype \
+shft \
 --save \
 --force-latest
