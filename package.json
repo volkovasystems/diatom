@@ -1,6 +1,6 @@
 {
   "name": "diatom",
-  "version": "0.30.0",
+  "version": "0.31.0",
   "description": "Class blueprint",
   "main": "diatom.js",
   "support": "diatom.support.js",
@@ -23,7 +23,8 @@
   ],
   "author": "Richeve S. Bebedor <richeve.bebedor@gmail.com>",
   "contributors": [
-    "John Lenon Maghanoy <johnlenonmaghanoy@gmail.com>"
+    "John Lenon Maghanoy <johnlenonmaghanoy@gmail.com>",
+    "Vinse Vinalon <vinsevinalon@gmail.com>"
   ],
   "license": "MIT",
   "bugs": {
@@ -35,7 +36,7 @@
     "babel-runtime": "^6.23.0",
     "burne": "^0.3.0",
     "falzy": "^0.20.0",
-    "komento": "^0.30.0",
+    "komento": "^0.31.0",
     "llamalize": "^0.15.0",
     "protype": "^0.22.0",
     "shft": "^0.2.0"
