@@ -12,6 +12,8 @@ Test.prototype.initialize = function initialize( ){
 
 let test = Test( "hello", "world", "yeah" );
 
+assert.deepEqual( Test[ Symbol.for( "class" ) ], Symbol.for( "class" ), "should be deeply equal" );
+
 assert.equal( test instanceof Test, true, "should be true" );
 
 assert.deepEqual( test.parameters, [ "hello", "world", "yeah" ], "should be deeply equal" );
