@@ -56,7 +56,6 @@
 			"burne": "burne",
 			"komento": "komento",
 			"llamalize": "llamalize",
-			"protype": "protype",
 			"shft": "shft"
 		}
 	@end-include
@@ -67,7 +66,6 @@ const burne = require( "burne" );
 const falzy = require( "falzy" );
 const komento = require( "komento" );
 const llamalize = require( "llamalize" );
-const protype = require( "protype" );
 const shft = require( "shft" );
 
 const template = require( "./template.js" );
@@ -86,7 +84,7 @@ const diatom = function diatom( name, parameter ){
 		@end-meta-configuration
 	*/
 
-	if( falzy( name ) || !protype( name, STRING ) ){
+	if( falzy( name ) || typeof name != "string" ){
 		throw new Error( "invalid name" );
 	}
 

@@ -5,7 +5,6 @@ burne \
 falzy \
 komento \
 llamalize \
-protype \
 shft \
 --save && \
 yarn add \
@@ -22,7 +21,6 @@ burne \
 falzy \
 komento \
 llamalize \
-protype \
 shft \
 --save \
 --force-latest
