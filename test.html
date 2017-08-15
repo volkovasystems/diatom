@@ -1,38 +1,26 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>diatom unit test</title>
+		<meta charset="utf-8">
 
-		<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.3.2.css">
+		<title>test:diatom</title>
 
-		<script type="application/javascript" src="https://code.jquery.com/qunit/qunit-2.3.2.js"></script>
-
-		<script type="application/javascript" src="./diatom.deploy.js"></script>
+		<link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css"/>
 	</head>
 
 	<body>
-		<div id="qunit"></div>
+		<div id="mocha"></div>
 
-		<div id="qunit-fixture"></div>
+		<script type="application/javascript" src="https://unpkg.com/mocha/mocha.js"></script>
 
 		<script type="application/javascript">
-			QUnit.test( "diatom unit test", function( assert ) {
+			mocha.setup( "bdd" );
+		</script>
 
-				const Test = diatom( "Test" );
+		<script type="application/javascript" src="./test.deploy.js"></script>
 
-				assert.equal( typeof Test == "function", true, "should be true" );
-
-				Test.prototype.initialize = function initialize( ){
-					this.parameters = Array.from( arguments );
-				};
-
-				let test = Test( "hello", "world", "yeah" );
-
-				assert.equal( test instanceof Test, true, "should be true" );
-
-				assert.deepEqual( test.parameters, [ "hello", "world", "yeah" ], "should be deeply equal" );
-
-			} );
+		<script type="application/javascript">
+			mocha.run( );
 		</script>
 	</body>
 </html>

@@ -1,52 +1,57 @@
 {
-  "name": "diatom",
-  "version": "0.31.0",
-  "description": "Class blueprint",
-  "main": "diatom.js",
-  "support": "diatom.support.js",
-  "deploy": "diatom.deploy.js",
-  "browser": "diatom.deploy.js",
-  "scripts": {
-    "build:template": "babel template.module.js -o template.js --source-maps",
-    "build:diatom": "babel diatom.js --out-file diatom.support.js --source-maps",
-    "build": "npm run build:template && npm run build:diatom && webpack --progress --display-modules",
-    "test": "mocha diatom-test.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/volkovasystems/diatom.git"
-  },
-  "keywords": [
-    "class",
-    "blueprint",
-    "genesis"
-  ],
-  "author": "Richeve S. Bebedor <richeve.bebedor@gmail.com>",
-  "contributors": [
-    "John Lenon Maghanoy <johnlenonmaghanoy@gmail.com>",
-    "Vinse Vinalon <vinsevinalon@gmail.com>"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/volkovasystems/diatom/issues"
-  },
-  "homepage": "https://github.com/volkovasystems/diatom#readme",
-  "dependencies": {
-    "arid": "^0.26.0",
-    "babel-runtime": "^6.23.0",
-    "burne": "^0.3.0",
-    "falzy": "^0.20.0",
-    "komento": "^0.31.0",
-    "llamalize": "^0.15.0",
-    "protype": "^0.22.0",
-    "shft": "^0.2.0"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.25.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-latest": "^6.24.1",
-    "source-map-loader": "^0.2.1",
-    "webpack": "^2.6.1"
-  }
+	"name": "diatom",
+	"version": "0.31.0",
+	"description": "Class blueprint",
+	"main": "diatom.js",
+	"support": "diatom.support.js",
+	"deploy": "diatom.deploy.js",
+	"browser": "diatom.deploy.js",
+	"scripts": {
+		"pristine": "rsetmod clean && flxc execute ./.install.sh",
+		"clear": "rsetmod clean --clear",
+		"formal": "jesy apply '*.json'",
+		"build:support": "gulp --module diatom,template --all",
+		"build:deploy": "webpack --config webpack.compact.js --progress --display-modules",
+		"rebuild": "npm run build:support && npm run build:deploy",
+		"build": "npm run pristine && npm run rebuild",
+		"build:test:support": "gulp --module test --all",
+		"build:test:deploy": "webpack --config webpack.test.js --progress --display-modules",
+		"build:test:bridge": "gulp --module test --bridge",
+		"build:test": "npm run build:test:support && npm run build:test:deploy && npm run build:test:bridge",
+		"test:server": "mocha test.js && mocha test.js --reporter=json > test.server.json",
+		"test:client": "./node_modules/.bin/wdio wdio.client.js",
+		"pretest": "npm run clear && npm run rebuild && npm run build:test",
+		"test": "npm run test:server && npm run test:client",
+		"posttest": "npm run formal",
+		"deploy": "npm run build && npm run build:test && npm run test:server && npm run test:client && npm run formal"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/volkovasystems/diatom.git"
+	},
+	"keywords": [
+		"class",
+		"blueprint",
+		"genesis"
+	],
+	"author": "Richeve S. Bebedor <richeve.bebedor@gmail.com>",
+	"contributors": [
+		"John Lenon Maghanoy <johnlenonmaghanoy@gmail.com>",
+		"Vinse Vinalon <vinsevinalon@gmail.com>"
+	],
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/volkovasystems/diatom/issues"
+	},
+	"homepage": "https://github.com/volkovasystems/diatom#readme",
+	"dependencies": {
+		"arid": "^0.30.0",
+		"babel-runtime": "^6.25.0",
+		"burne": "^0.6.0",
+		"falzy": "^0.23.0",
+		"komento": "^0.33.0",
+		"llamalize": "^0.17.0",
+		"protype": "^0.24.0",
+		"shft": "^0.5.0"
+	}
 }
